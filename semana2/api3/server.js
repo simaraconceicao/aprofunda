@@ -4,14 +4,18 @@
 // GET -> busca/pega informação (disponibiliza para o front)
 // POST -> cria uma informação
 
+// require -> comonJs
+// es6 Module -> import/export
+
 //queryParams
 //routeParams
 
 const express = require('express')
-const routerDisciplinas = express.Router()
 const cors = require('cors')
-const PORT = 3333
 const { v4: uuidv4 } = require('uuid')
+
+const routerDisciplinas = express.Router()
+const PORT = 3333
 
 const app = express()
 app.use(express.json())
@@ -48,6 +52,41 @@ routerDisciplinas.post('/disciplinas', (req, res) => {
 routerDisciplinas.delete('/disciplina/:id', (req, res) => {
   const listaAtualizada = list.filter(item => item.id !== req.params.id)
   res.json(listaAtualizada)
+})
+
+//PUT 
+routerDisciplinas.put('/disciplina/:id', (req, res) => {
+  let encontraDisciplina = list.find(item => item.id === req.params.id)
+
+  if (!encontraDisciplina) {
+    res.status(404).json({ message: 'Item não encontrado.'})
+  }
+
+  encontraDisciplina.titulo = req.body.titulo
+  encontraDisciplina.modulo = req.body.modulo
+
+  res.json({ message: `Disciplina ${req.body.titulo} alterada com sucesso!` })
+})
+
+//PATCH 
+routerDisciplinas.patch('/disciplina/:id', (req, res) => {
+  const { titulo, modulo } = req.body;
+
+  let encontraDisciplina = list.find(item => item.id === req.params.id)
+
+  if (!encontraDisciplina) {
+    res.status(404).json({ message: 'Item não encontrado.'})
+  }
+
+  if (titulo != null) {
+    encontraDisciplina.titulo = titulo
+  }
+
+  if (modulo != null) {
+    encontraDisciplina.modulo = modulo
+  }
+
+  res.json({ message: `Disciplina ${titulo} alterada com sucesso!` })
 })
 
 app.use(routerDisciplinas)
