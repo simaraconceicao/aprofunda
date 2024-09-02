@@ -1,6 +1,5 @@
 const TextFactory = require('./textFactory')
 const TextStorage = require('../utils/textStorage')
-const textStorage = require('../utils/textStorage')
 
 module.exports = {
   createText: ({ title, content, status, author }) => {
@@ -14,6 +13,6 @@ module.exports = {
   },
 
   getTextById: (id) => {
-    return textStorage.getById(id)
+    return TextStorage.getById(id)
   }
 }
