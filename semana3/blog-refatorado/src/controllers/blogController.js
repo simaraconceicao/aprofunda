@@ -1,3 +1,4 @@
+
 const TextService = require('../services/textServices');
 
 const createPost = (req, res) => {
@@ -23,8 +24,36 @@ const listPost = (req, res) => {
   res.json(text)
 }
 
+const updatePost = (req, res) => {
+  const textId = req.params.id
+  const updates = req.body;
+
+
+  const updatedText = TextService.updateTextById(textId, updates);
+
+  if (!updatedText) {
+    return res.status(404).json({ message: `Texto com o ID ${textId} não encontrado.` });
+  }
+
+  res.status(200).json(updatedText)
+}
+
+//delete
+const deletePost = (req, res) => {
+  const textId = req.params.id
+
+  const result = TextService.deleteTextById(textId)
+
+  if (result === null) {
+    return res.status(404).json({ message: `Texto com o ID ${textId} não encontrado.` })
+  }
+
+  res.status(200).json({ message: `Texto com o ID ${textId} deletado com sucesso.` })
+}
 module.exports = {
   createPost,
   listPosts,
-  listPost
+  listPost,
+  updatePost,
+  deletePost
 }
