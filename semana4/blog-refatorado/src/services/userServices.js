@@ -9,5 +9,8 @@ module.exports = {
   },
   getAllUsers: () => {
     return UserStorage.getAll()
+  },
+  deleteUser: (id) => {
+    return UserStorage.deleteById(id)
   }
 }

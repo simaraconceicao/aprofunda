@@ -15,6 +15,10 @@ class UserStorage {
     return this.users
   }
 
+  deleteById(id) {
+    return this.users.filter(item => item.id !== id)
+  }
+
 }
 
 module.exports = new UserStorage()

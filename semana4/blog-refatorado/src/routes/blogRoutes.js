@@ -16,5 +16,6 @@ router.delete('/text/:id', blogController.deletePost)
 
 router.post('/users', userController.createUser)
 router.get('/users', userController.listUsers)
+router.delete('/user/:id', userController.deleteUser)
 
 module.exports = router
